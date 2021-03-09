@@ -1,0 +1,109 @@
+﻿@import url('font/quicksand.css');
+
+html, body {
+    height: 100%;
+}
+
+body {
+    padding-top: 5rem;
+    flex-direction: column;
+    font-family: 'quicksand';
+    overflow-y: hidden;
+}
+
+.main {
+    flex-grow: 1;
+    overflow-y: auto;
+    background: linear-gradient(rgba(0,0,0,0) 40%, rgba(0,0,0,0.4) 80%);
+    padding: 1.5rem !important;
+}
+
+.nav-tab {
+    margin: 0;
+    padding: 0.3rem 1.8rem;
+    display: inline-block;
+    background-color: rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    color: white;
+    position: relative;
+    text-transform: uppercase;
+    transition: 0.2s ease-out;
+}
+
+    .nav-tab:hover {
+        color: white;
+        text-decoration: none;
+        background-color: rgba(255,255,255,0.3);
+    }
+
+    .nav-tab.active {
+        background-color: rgba(255,255,255,0.2);
+        color: #fff2cc;
+    }
+
+    .nav-tab img {
+        height: 2rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .nav-tab.active img {
+        filter: brightness(0) saturate(100%) invert(93%) sepia(18%) saturate(797%) hue-rotate(316deg) brightness(109%) contrast(101%);
+    }
+
+    .nav-tab.active:after {
+        content: "";
+        position: absolute;
+        bottom: -1rem;
+        z-index: 1;
+        width: 0px;
+        height: 0px;
+        border-left: 0.6rem solid transparent;
+        border-right: 0.6rem solid transparent;
+        border-top: 1rem solid rgb(205,51,51);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+.valid.modified:not([type=checkbox]) {
+    outline: 1px solid #26b050;
+}
+
+.invalid {
+    outline: 1px solid red;
+}
+
+.validation-message {
+    color: red;
+}
+
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+    #blazor-error-ui .dismiss {
+        cursor: pointer;
+        position: absolute;
+        right: 0.75rem;
+        top: 0.5rem;
+    }
