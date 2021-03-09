@@ -1,0 +1,12 @@
+[submodule "PowerToys/deps/spdlog"]
+	path = PowerToys/deps/spdlog
+	url = https://github.com/gabime/spdlog.git
+[submodule "PowerToys/deps/cxxopts"]
+	path = PowerToys/deps/cxxopts
+	url = https://github.com/jarro2783/cxxopts.git
+[submodule "PowerToys/deps/expected-lite"]
+	path = PowerToys/deps/expected-lite
+	url = https://github.com/martinmoene/expected-lite.git
+[submodule "PowerToys/deps/cziplib"]
+	path = PowerToys/deps/cziplib
+	url = https://github.com/kuba--/zip.git
