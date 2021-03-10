@@ -1,0 +1,51 @@
+﻿.cart-item {
+    background-color: #333333;
+    padding: 0.8rem 1.2rem;
+    border-radius: 6px;
+    font-weight: 100;
+    margin-top: 1rem;
+    position: relative;
+}
+
+    .cart-item .title {
+        font-weight: 700;
+    }
+
+    .cart-item ul {
+        padding: 0;
+        margin: 0.4rem 0.6rem;
+    }
+
+    .cart-item li {
+        list-style-type: none;
+        margin-left: 0rem;
+        font-size: 0.8rem;
+    }
+
+item-price {
+    font-weight: 500;
+}
+
+.item-price::before {
+    content: '£';
+    font-weight: 100;
+    margin-right: 0.3rem;
+}
+
+.delete-item {
+    position: absolute;
+    top: 0;
+    right: 0;
+    content: 'X';
+    cursor: pointer;
+    color: #fff2cc;
+    width: 2rem;
+    height: 2rem;
+    text-align: center;
+}
+
+    .delete-item:hover {
+        text-decoration: none;
+        color: #fff2cc;
+        background-color: rgba(255,255,255,0.1);
+    }

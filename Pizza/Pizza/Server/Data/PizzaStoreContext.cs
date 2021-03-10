@@ -13,7 +13,7 @@ namespace BlazingPizza.Server
         {
         }
 
-        //public DbSet<Order> Orders { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
         public DbSet<Pizza> Pizzas { get; set; }
 
@@ -21,7 +21,7 @@ namespace BlazingPizza.Server
 
         public DbSet<Topping> Toppings { get; set; }
 
-        //public DbSet<NotificationSubscription> NotificationSubscriptions { get; set; }
+        public DbSet<NotificationSubscription> NotificationSubscriptions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -33,7 +33,7 @@ namespace BlazingPizza.Server
             modelBuilder.Entity<PizzaTopping>().HasOne(pst => pst.Topping).WithMany();
 
             // Inline the Lat-Long pairs in Order rather than having a FK to another table
-            //modelBuilder.Entity<Order>().OwnsOne(o => o.DeliveryLocation);
+            modelBuilder.Entity<Order>().OwnsOne(o => o.DeliveryLocation);
         }
     }
 }
