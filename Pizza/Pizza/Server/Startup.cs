@@ -21,7 +21,15 @@ namespace BlazingPizza.Server
 
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddCors(option =>
+            {
+                option.AddPolicy("hi", policy =>
+                {
+                    policy.AllowAnyOrigin();
+                    policy.AllowAnyMethod();
+                    policy.AllowAnyHeader();
+                });
+            });
             services.AddDbContext<PizzaStoreContext>(options =>
                 options.UseSqlite("Data Source=pizza.db"));
 
@@ -46,7 +54,7 @@ namespace BlazingPizza.Server
             app.UseHttpsRedirection();
             app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
-
+            app.UseCors("hi");
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
