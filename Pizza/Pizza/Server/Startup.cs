@@ -30,8 +30,9 @@ namespace BlazingPizza.Server
                     policy.AllowAnyHeader();
                 });
             });
-            services.AddDbContext<PizzaStoreContext>(options =>
-                options.UseSqlite("Data Source=pizza.db"));
+            //services.AddDbContext<PizzaStoreContext>(options =>
+            //    options.UseSqlite("Data Source=pizza.db"));
+
 
             services.AddControllersWithViews();
             services.AddRazorPages();

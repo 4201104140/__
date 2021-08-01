@@ -1,0 +1,30 @@
+<Project>
+  <PropertyGroup>
+    <UseLocalCoyoteBuild>False</UseLocalCoyoteBuild>
+  </PropertyGroup>
+  <Import Project="$(MSBuildThisFileDirectory)version.props" />
+  <PropertyGroup>
+    <Product>CoyoteExamples</Product>
+    <Company>Microsoft Corporation</Company>
+    <Copyright>Copyright © Microsoft Corporation.</Copyright>
+    <LangVersion>8.0</LangVersion>
+    <CodeAnalysisRuleSetLocation>$(MSBuildThisFileDirectory)</CodeAnalysisRuleSetLocation>
+    <CodeAnalysisRuleSet>$(CodeAnalysisRuleSetLocation)\codeanalysis.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+ <PropertyGroup>
+    <TargetFrameworks>net5.0</TargetFrameworks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Coyote" Version="$(Version)" />
+    <PackageReference Include="Microsoft.Coyote.Test" Version="$(Version)" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.2" PrivateAssets="All" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" PrivateAssets="All" />
+  </ItemGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="$(MSBuildThisFileDirectory)\stylecop.json" />
+  </ItemGroup>
+</Project>
