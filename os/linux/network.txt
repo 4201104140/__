@@ -1,0 +1,10 @@
+Interfaces
+   ip addr list
+   apt-get install bridge-utils
+
+Routing Tables
+
+Firewall (IPTables)
+
+QoS
+

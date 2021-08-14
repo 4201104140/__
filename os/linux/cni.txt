@@ -1,0 +1,68 @@
+kubectl patch pvc pvc_name -p '{"metadata":{"finalizers":null}}'
+
+docker exec -ti cni bash
+/proc# ls -l /proc/$$/ns | awk '{print $1, $9, $10, $11}'
+/proc/[pid]/ns/cgroup
+/proc/sys/user
+
+
+https://www.cni.dev/docs/spec/
+# CNI
+A format for administrators to define network configuration.
+A protocol for container runtimes to make requests to network plugins.
+A procedure for executing plugins based on a supplied configuration.
+A procedure for plugins to delegate functionality to other plugins.
+Data types for plugins to return their results to the runtime.
+
+Configuration format
+    cniVersion: "1.0.0"
+    name 
+    disableCheck: false, true
+    plugins  
+Plugin configuration objects
+    type: (string): Matches the name of the CNI plugin binary on disk, not / \
+    capabilities (dictionary)
+
+Example configuration
+{
+  "cniVersion": "1.0.0",
+  "name": "dbnet",
+  "plugins": [
+    {
+      "type": "bridge",
+      // plugin specific parameters
+      "bridge": "cni0",
+      "keyA": ["some more", "plugin specific", "configuration"],
+      
+      "ipam": {
+        "type": "host-local",
+        // ipam specific
+        "subnet": "10.1.0.0/16",
+        "gateway": "10.1.0.1",
+        "routes": [
+            {"dst": "0.0.0.0/0"}
+        ]
+      },
+      "dns": {
+        "nameservers": [ "10.1.0.1" ]
+      }
+    },
+    {
+      "type": "tuning",
+      "capabilities": {
+        "mac": true
+      },
+      "sysctl": {
+        "net.core.somaxconn": "500"
+      }
+    },
+    {
+        "type": "portmap",
+        "capabilities": {"portMappings": true}
+    }
+  ]
+}
+
+Section 2: Execution Protocol
+The CNI protocol is based on execution of binaries invoked by the container runtime. CNI defines the protocol between the plugin binary and the runtime.
+Parameters: https://www.cni.dev/docs/spec/#parameters
