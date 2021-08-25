@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31606.5
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transformation.Text", "Transformation.Text\Transformation.Text.csproj", "{A006BD63-2FC9-451E-B726-4C6F1941BEB4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A006BD63-2FC9-451E-B726-4C6F1941BEB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A006BD63-2FC9-451E-B726-4C6F1941BEB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A006BD63-2FC9-451E-B726-4C6F1941BEB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A006BD63-2FC9-451E-B726-4C6F1941BEB4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8DCDF042-F69C-4496-B318-9BB9E2479106}
+	EndGlobalSection
+EndGlobal
