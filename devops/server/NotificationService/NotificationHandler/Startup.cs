@@ -8,6 +8,7 @@ namespace NotificationHandler
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Options;
+    using Microsoft.OpenApi.Models;
     using NotificationService.SvCommon.Common;
 
     /// <summary>
@@ -37,6 +38,12 @@ namespace NotificationHandler
             {
                 _ = endpoints.MapControllers();
             });
+
+            _ = app.UseSwagger();
+            _ = app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "NotificationHandler");
+            });
         }
 
         /// <summary>
@@ -46,6 +53,13 @@ namespace NotificationHandler
         public void ConfigureServices(IServiceCollection services)
         {
             this.ConfigureServicesCommon(services);
+
+            _ = services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "NotificationHandler", Version = "v1" });
+            });
+
+            services.AddApplicationInsightsTelemetry();
         }
     }
 }

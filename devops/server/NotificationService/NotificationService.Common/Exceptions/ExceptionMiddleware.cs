@@ -1,6 +1,6 @@
 ﻿// @Tai.
 
-namespace Common.Exceptions;
+namespace NotificationService.Common.Exceptions;
 
 using System;
 using System.Net;

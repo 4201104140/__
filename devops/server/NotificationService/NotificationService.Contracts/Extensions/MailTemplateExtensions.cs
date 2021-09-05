@@ -12,6 +12,37 @@ using NotificationService.Contracts.Entities;
 public static class MailTemplateExtensions
 {
     /// <summary>
+    /// Converts <see cref="MailTemplate"/> to a <see cref="MailTemplateEntity"/>.
+    /// </summary>
+    /// <param name="mailTempalteItem">Email template item.</param>
+    /// <param name="applicationName">Application associated to the notification item.</param>
+    /// <param name="encryptionService">Instance of encryption service to protect the secure content before saving in datastore.</param>
+    /// <returns><see cref="MailTemplateEntity"/>.</returns>
+    public static MailTemplateEntity ToEntity(this MailTemplate mailTempalteItem, string applicationName, IEncryptionService encryptionService)
+    {
+        if (encryptionService is null)
+        {
+            throw new ArgumentNullException(nameof(encryptionService));
+        }
+
+        if (mailTempalteItem != null)
+        {
+            return new MailTemplateEntity()
+            {
+                PartitionKey = applicationName,
+                RowKey = mailTempalteItem.TemplateId,
+                Application = applicationName,
+                TemplateId = mailTempalteItem.TemplateId,
+                Description = mailTempalteItem.Description,
+                TemplateType = mailTempalteItem.TemplateType,
+                Content = encryptionService.Encrypt(mailTempalteItem.Content),
+            };
+        }
+
+        return null;
+    }
+
+    /// <summary>
     /// Converts <see cref="MailTemplateEntity"/> to a <see cref="MailTemplate"/>.
     /// </summary>
     /// <param name="mailTemplateEntity">Email template item.</param>

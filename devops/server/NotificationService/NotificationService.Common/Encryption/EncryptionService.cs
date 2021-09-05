@@ -25,21 +25,22 @@ public class EncryptionService : IEncryptionService
     /// </summary>
     /// <param name="cryptographyClient">The cryptography client.</param>
     /// <param name="configuration">The configuration.</param>
-    public EncryptionService(IKeyEncryptionKey cryptographyClient, IConfiguration configuration)
+    public EncryptionService(/*IKeyEncryptionKey cryptographyClient,*/ IConfiguration configuration)
     {
-        if (cryptographyClient == null)
-        {
-            throw new ArgumentNullException(nameof(cryptographyClient));
-        }
+        //if (cryptographyClient == null)
+        //{
+        //    throw new ArgumentNullException(nameof(cryptographyClient));
+        //}
 
         if (configuration == null)
         {
             throw new ArgumentNullException(nameof(configuration));
         }
 
-        this.keyInfo = new KeyInfo(
-            cryptographyClient.UnwrapKey(JsonWebKeyEncryptionAlgorithm.RSA15, Convert.FromBase64String(configuration[ConfigConstants.NotificationEncryptionKey])),
-            cryptographyClient.UnwrapKey(JsonWebKeyEncryptionAlgorithm.RSA15, Convert.FromBase64String(configuration[ConfigConstants.NotificationEncryptionIntialVector])));
+        //this.keyInfo = new KeyInfo(
+        //    cryptographyClient.UnwrapKey(JsonWebKeyEncryptionAlgorithm.RSA15, Convert.FromBase64String(configuration[ConfigConstants.NotificationEncryptionKey])),
+        //    cryptographyClient.UnwrapKey(JsonWebKeyEncryptionAlgorithm.RSA15, Convert.FromBase64String(configuration[ConfigConstants.NotificationEncryptionIntialVector])));
+        this.keyInfo = new KeyInfo(configuration[ConfigConstants.NotificationEncryptionKey], configuration[ConfigConstants.NotificationEncryptionIntialVector]);
     }
 
     /// <inheritdoc/>

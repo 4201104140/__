@@ -1,17 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.0.31606.5
+VisualStudioVersion = 17.0.31612.314
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{1B9E893C-80D3-4252-86AF-F40313B4181C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ui1", "ui1", "{97F3A075-9122-4B15-A1EC-A21B80C1740A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Board.Shared", "Board.Shared\Board.Shared.csproj", "{0996636C-4E30-432E-8D81-15D379D229B2}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Board", "Board\Board.csproj", "{B11A3009-19DF-4DC6-8A90-91A0F9A2E724}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Components", "Components", "{E665D08A-08FA-4E58-AAD1-F82625F4D364}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorFluentUI.CoreComponents", "BlazorFluentUI.CoreComponents\BlazorFluentUI.CoreComponents.csproj", "{2D93179A-B29D-47CF-A4D3-FC38445B3194}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OAT.FAST", "ui1\OAT.FAST\OAT.FAST.csproj", "{8819E604-FE61-48C8-A342-F72078DE16BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,25 +13,16 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0996636C-4E30-432E-8D81-15D379D229B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0996636C-4E30-432E-8D81-15D379D229B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0996636C-4E30-432E-8D81-15D379D229B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0996636C-4E30-432E-8D81-15D379D229B2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B11A3009-19DF-4DC6-8A90-91A0F9A2E724}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B11A3009-19DF-4DC6-8A90-91A0F9A2E724}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B11A3009-19DF-4DC6-8A90-91A0F9A2E724}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B11A3009-19DF-4DC6-8A90-91A0F9A2E724}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2D93179A-B29D-47CF-A4D3-FC38445B3194}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2D93179A-B29D-47CF-A4D3-FC38445B3194}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2D93179A-B29D-47CF-A4D3-FC38445B3194}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2D93179A-B29D-47CF-A4D3-FC38445B3194}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8819E604-FE61-48C8-A342-F72078DE16BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8819E604-FE61-48C8-A342-F72078DE16BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8819E604-FE61-48C8-A342-F72078DE16BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8819E604-FE61-48C8-A342-F72078DE16BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{0996636C-4E30-432E-8D81-15D379D229B2} = {1B9E893C-80D3-4252-86AF-F40313B4181C}
-		{2D93179A-B29D-47CF-A4D3-FC38445B3194} = {E665D08A-08FA-4E58-AAD1-F82625F4D364}
+		{8819E604-FE61-48C8-A342-F72078DE16BB} = {97F3A075-9122-4B15-A1EC-A21B80C1740A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3E5F0823-0B7C-492D-BEE1-880EFCE5BD66}

@@ -29,6 +29,16 @@ public class TableStorageRepositoryTests
     private readonly Mock<ITableStorageClient> cloudStorageClient;
 
     /// <summary>
+    /// Instance of <see cref="ILogger"/>.
+    /// </summary>
+    private readonly Mock<ILogger> logger;
+
+    /// <summary>
+    /// Instance of <see cref="IMailAttachmentRepository"/>.
+    /// </summary>
+    private readonly Mock<IMailAttachmentRepository> mailAttachmentRepository;
+
+    /// <summary>
     /// Application Name.
     /// </summary>
     private readonly string applicationName = "TestApp";
@@ -43,11 +53,20 @@ public class TableStorageRepositoryTests
     };
 
     /// <summary>
+    /// Instance of <see cref="meetingHistoryTable"/>.
+    /// </summary>
+    private Mock<CloudTable> meetingHistoryTable;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="TableStorageRepositoryTests"/> class.
     /// </summary>
     public TableStorageRepositoryTests()
     {
         this.cloudStorageClient = new Mock<ITableStorageClient>();
+        this.logger = new Mock<ILogger>();
+        this.mailAttachmentRepository = new Mock<IMailAttachmentRepository>();
+        this.meetingHistoryTable = new Mock<CloudTable>(new Uri("http://unittests.localhost.com/FakeTable"), (TableClientConfiguration)null);
+        _ = this.cloudStorageClient.Setup(x => x.GetCloudTable("MeetingHistory")).Returns(this.meetingHistoryTable.Object);
     }
 
 

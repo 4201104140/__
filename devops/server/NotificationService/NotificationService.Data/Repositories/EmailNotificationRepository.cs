@@ -39,16 +39,42 @@ public class EmailNotificationRepository : IEmailNotificationRepository
     private readonly Container emailHistoryContainer;
 
     /// <summary>
+    /// Instance of <see cref="Container"/>.
+    /// </summary>
+    private readonly Container meetingHistoryContainer;
+
+    /// <summary>
+    /// Instance of <see cref="ILogger"/>.
+    /// </summary>
+    private readonly ILogger logger;
+
+    /// <summary>
+    /// Instance of <see cref="ICosmosLinqQuery"/>.
+    /// </summary>
+    private readonly ICosmosLinqQuery cosmosLinqQuery;
+
+    /// <summary>
+    /// Instance of <see cref="IMailAttachmentRepository"/>.
+    /// </summary>
+    private readonly IMailAttachmentRepository mailAttachmentRepository;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="EmailNotificationRepository"/> class.
     /// </summary>
     /// <param name="cosmosDBSetting">Cosmos DB Configuration.</param>
     /// <param name="cosmosDBQueryClient">CosmosDB Query Client.</param>
-    public EmailNotificationRepository(IOptions<CosmosDBSetting> cosmosDBSetting, ICosmosDBQueryClient cosmosDBQueryClient)
+    /// <param name="logger">Instance of Logger.</param>
+    /// <param name="cosmosLinqQuery">Instance of Cosmos Linq query.</param>
+    /// <param name="mailAttachmentRepository">Instance of the Mail Attachment repository.</param>
+    public EmailNotificationRepository(IOptions<CosmosDBSetting> cosmosDBSetting, ICosmosDBQueryClient cosmosDBQueryClient, ILogger logger, ICosmosLinqQuery cosmosLinqQuery, IMailAttachmentRepository mailAttachmentRepository)
     {
         this.cosmosDBSetting = cosmosDBSetting?.Value ?? throw new System.ArgumentNullException(nameof(cosmosDBSetting));
         this.cosmosDBQueryClient = cosmosDBQueryClient ?? throw new System.ArgumentNullException(nameof(cosmosDBQueryClient));
-
         this.emailHistoryContainer = this.cosmosDBQueryClient.GetCosmosContainer(this.cosmosDBSetting.Database, this.cosmosDBSetting.EmailHistoryContainer);
+        this.meetingHistoryContainer = this.cosmosDBQueryClient.GetCosmosContainer(this.cosmosDBSetting.Database, this.cosmosDBSetting.MeetingHistoryContainer);
+        this.logger = logger ?? throw new System.ArgumentNullException(nameof(logger));
+        this.cosmosLinqQuery = cosmosLinqQuery;
+        this.mailAttachmentRepository = mailAttachmentRepository;
     }
 
     /// <inheritdoc/>
@@ -59,7 +85,14 @@ public class EmailNotificationRepository : IEmailNotificationRepository
             throw new System.ArgumentNullException(nameof(emailNotificationItemEntities));
         }
 
+        this.logger.TraceInformation($"Started {nameof(this.CreateEmailNotificationItemEntities)} method of {nameof(EmailNotificationRepository)}.");
+
         IList<EmailNotificationItemEntity> updatedEmailNotificationItemEntities = emailNotificationItemEntities;
+        if (applicationName != null)
+        {
+            updatedEmailNotificationItemEntities = await this.mailAttachmentRepository.UploadEmail(emailNotificationItemEntities, NotificationType.Mail.ToString(), applicationName).ConfigureAwait(false);
+        }
+
         List<Task> createTasks = new List<Task>();
         foreach (var item in updatedEmailNotificationItemEntities)
         {
@@ -67,8 +100,14 @@ public class EmailNotificationRepository : IEmailNotificationRepository
         }
 
         Task.WaitAll(createTasks.ToArray());
+        this.logger.TraceInformation($"Finished {nameof(this.CreateEmailNotificationItemEntities)} method of {nameof(EmailNotificationRepository)}.");
 
         return;
+    }
+
+    public Task CreateMeetingNotificationItemEntities(IList<MeetingNotificationItemEntity> meetingNotificationItemEntity, string applicationName)
+    {
+        throw new NotImplementedException();
     }
 
     public Task<IList<EmailNotificationItemEntity>> GetEmailNotificationItemEntities(IList<string> notificationIds, string applicationName = null)
@@ -81,7 +120,42 @@ public class EmailNotificationRepository : IEmailNotificationRepository
         throw new NotImplementedException();
     }
 
+    public Task<Tuple<IList<EmailNotificationItemEntity>, TableContinuationToken>> GetEmailNotifications(NotificationReportRequest notificationReportRequest)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<Tuple<IList<MeetingNotificationItemEntity>, TableContinuationToken>> GetMeetingInviteNotifications(NotificationReportRequest meetingInviteReportRequest)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<IList<MeetingNotificationItemEntity>> GetMeetingNotificationItemEntities(IList<string> notificationIds, string applicationName)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<MeetingNotificationItemEntity> GetMeetingNotificationItemEntity(string notificationId, string applicationName)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<IList<EmailNotificationItemEntity>> GetPendingOrFailedEmailNotificationsByDateRange(DateTimeRange dateRange, string applicationName, List<NotificationItemStatus> statusList, bool loadBody = false)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<IList<MeetingNotificationItemEntity>> GetPendingOrFailedMeetingNotificationsByDateRange(DateTimeRange dateRange, string applicationName, List<NotificationItemStatus> statusList, bool loadBody = false)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task UpdateEmailNotificationItemEntities(IList<EmailNotificationItemEntity> emailNotificationItemEntities)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task UpdateMeetingNotificationItemEntities(IList<MeetingNotificationItemEntity> meetingNotificationItemEntity)
     {
         throw new NotImplementedException();
     }

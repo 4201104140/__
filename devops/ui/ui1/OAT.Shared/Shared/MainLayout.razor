@@ -1,0 +1,15 @@
+﻿@using Microsoft.AspNetCore.Components
+@using BlazorFluentUI.Themes.Default
+@inherits LayoutComponentBase
+
+<Stack Horizontal="true" Style="width:100%">
+	<ResponsiveLayout MinWidth="ResponsiveMode.Medium.ToMinCssValue()">
+        <StackItem Grow="0" DisableShrink="true" Style="height:100%;overflow:hidden;">
+            <NavMenu />
+        </StackItem>
+    </ResponsiveLayout>
+</Stack>
+
+@code {
+
+}

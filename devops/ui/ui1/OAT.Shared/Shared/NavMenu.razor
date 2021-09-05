@@ -1,0 +1,24 @@
+﻿@using BlazorFluentUI.Routing
+<Stack Horizontal="false" VerticalFill="true" Style="overflow:hidden;">
+	<StackItem VerticalFill="true" Style="overflow: auto;">
+		<Nav>
+			<NavLinkGroup Name="Basic Controls" CollapseByDefault="false">
+				<BlazorFluentUI.Routing.NavLink Name="Button" Url="buttonsPage" Id="buttonsPage" IconName="ButtonControl" OnClick=@OnLinkClicked />
+			</NavLinkGroup>
+		</Nav>
+	</StackItem>
+</Stack>
+
+@code {
+
+    [Parameter] public EventCallback<BlazorFluentUI.Routing.NavLink> OnLinkClicked { get; set; }
+
+    bool collapseNavMenu = true;
+
+    string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

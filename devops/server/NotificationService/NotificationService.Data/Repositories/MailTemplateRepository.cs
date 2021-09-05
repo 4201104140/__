@@ -16,6 +16,7 @@ using NotificationService.Contracts.Entities;
 /// </summary>
 public class MailTemplateRepository : IMailTemplateRepository
 {
+    private readonly ILogger logger;
     private readonly ICloudStorageClient cloudStorageClient;
     private readonly ITableStorageClient tableStorageClient;
     private readonly CloudTable cloudTable;
@@ -23,11 +24,17 @@ public class MailTemplateRepository : IMailTemplateRepository
     /// <summary>
     /// Initializes a new instance of the <see cref="MailTemplateRepository"/> class.
     /// </summary>
+    /// <param name="logger">logger.</param>
+    /// <param name="cloudStorageClient">cloud storage client for blob storage.</param>
+    /// <param name="tableStorageClient">cloud storage client for table storage.</param>
+    /// <param name="storageAccountSetting">primary key of storage account.</param>
     public MailTemplateRepository(
+        ILogger logger,
         ICloudStorageClient cloudStorageClient,
-        TableStorageClient tableStorageClient,
+        ITableStorageClient tableStorageClient,
         IOptions<StorageAccountSetting> storageAccountSetting)
     {
+        this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         this.cloudStorageClient = cloudStorageClient ?? throw new ArgumentNullException(nameof(cloudStorageClient));
         this.tableStorageClient = tableStorageClient ?? throw new ArgumentNullException(nameof(tableStorageClient));
 
@@ -38,6 +45,7 @@ public class MailTemplateRepository : IMailTemplateRepository
 
         if (string.IsNullOrWhiteSpace(storageAccountSetting?.Value?.MailTemplateTableName))
         {
+            this.logger.WriteException(new ArgumentException("MailTemplateTableName"));
             throw new ArgumentException("MailTemplateTableName");
         }
 
@@ -50,6 +58,8 @@ public class MailTemplateRepository : IMailTemplateRepository
         var traceProps = new Dictionary<string, string>();
         traceProps[AIConstants.Application] = applicationName;
         traceProps[AIConstants.MailTemplateName] = templateName;
+
+        this.logger.TraceInformation($"Started {nameof(this.GetMailTemplate)} method of {nameof(MailTemplateRepository)}.", traceProps);
 
         string blobName = this.GetBlobName(applicationName, templateName);
         var contentTask = this.cloudStorageClient.DownloadBlobAsync(blobName).ConfigureAwait(false);
@@ -65,23 +75,93 @@ public class MailTemplateRepository : IMailTemplateRepository
             templateEntity.Content = await contentTask;
         }
 
+        this.logger.TraceInformation($"Finished {nameof(this.GetMailTemplate)} method of {nameof(MailTemplateRepository)}.", traceProps);
+
         return templateEntity;
     }
 
-    public Task<bool> DeleteMailTemplate(string applicationName, string templateName)
+    /// <inheritdoc/>
+    public async Task<IList<MailTemplateEntity>> GetAllTemplateEntities(string applicationName)
     {
-        throw new NotImplementedException();
-    }
+        var traceProps = new Dictionary<string, string>();
+        traceProps[AIConstants.Application] = applicationName;
 
-    public Task<IList<MailTemplateEntity>> GetAllTemplateEntities(string applicationName)
-    {
-        throw new NotImplementedException();
+        this.logger.TraceInformation($"Started {nameof(this.GetAllTemplateEntities)} method of {nameof(MailTemplateRepository)}.", traceProps);
+
+        List<MailTemplateEntity> mailTemplateEntities = new List<MailTemplateEntity>();
+        var filterPartitionkey = TableQuery.GenerateFilterCondition(nameof(MailTemplateEntity.PartitionKey), QueryComparisons.Equal, applicationName);
+        var query = new TableQuery<MailTemplateEntity>().Where(filterPartitionkey);
+        TableContinuationToken continuationToken = null;
+        do
+        {
+            var page = await this.cloudTable.ExecuteQuerySegmentedAsync(query, continuationToken).ConfigureAwait(false);
+            continuationToken = page.ContinuationToken;
+            mailTemplateEntities.AddRange(page.Results);
+        }
+        while (continuationToken != null);
+
+        this.logger.TraceInformation($"Finished {nameof(this.GetAllTemplateEntities)} method of {nameof(MailTemplateRepository)}.", traceProps);
+
+        return mailTemplateEntities;
     }
 
     /// <inheritdoc/>
-    public Task<bool> UpsertEmailTemplateEntities(MailTemplateEntity mailTemplateEntity)
+    public async Task<bool> UpsertEmailTemplateEntities(MailTemplateEntity mailTemplateEntity)
     {
-        throw new NotImplementedException();
+        bool result = false;
+        this.logger.TraceInformation($"Started {nameof(this.UpsertEmailTemplateEntities)} method of {nameof(MailTemplateRepository)}.");
+
+        if (mailTemplateEntity is null)
+        {
+            throw new ArgumentNullException(nameof(mailTemplateEntity));
+        }
+
+        string blobName = this.GetBlobName(mailTemplateEntity.Application, mailTemplateEntity.TemplateId);
+        string blobUri = await this.cloudStorageClient.UploadBlobAsync(
+            blobName,
+            mailTemplateEntity.Content)
+            .ConfigureAwait(false);
+
+        // Making sure content is not stored in table storage
+        mailTemplateEntity.Content = null;
+
+        // Create the TableOperation object that inserts the entity.
+        TableOperation insertOperation = TableOperation.InsertOrReplace(mailTemplateEntity);
+        var response = await this.cloudTable.ExecuteAsync(insertOperation).ConfigureAwait(false);
+        result = true;
+        this.logger.TraceInformation($"Finished {nameof(this.UpsertEmailTemplateEntities)} method of {nameof(MailTemplateRepository)}.");
+
+        return result;
+    }
+
+    /// <inheritdoc/>
+    public async Task<bool> DeleteMailTemplate(string applicationName, string templateName)
+    {
+        var traceProps = new Dictionary<string, string>();
+        traceProps[AIConstants.Application] = applicationName;
+        traceProps[AIConstants.MailTemplateName] = templateName;
+
+        this.logger.TraceInformation($"Started {nameof(this.DeleteMailTemplate)} method of {nameof(MailTemplateRepository)}.", traceProps);
+        bool result = false;
+        string blobName = this.GetBlobName(applicationName, templateName);
+        var status = await this.cloudStorageClient.DeleteBlobsAsync(blobName).ConfigureAwait(false);
+
+        if (status)
+        {
+            // Retrieve the entity to be deleted.
+            TableOperation retrieveOperation = TableOperation.Retrieve<MailTemplateEntity>(applicationName, templateName);
+            TableResult tableResult = await this.cloudTable.ExecuteAsync(retrieveOperation).ConfigureAwait(false);
+            MailTemplateEntity mailTemplateEntity = tableResult.Result as MailTemplateEntity;
+
+            // Create the TableOperation object that Delets the entity.
+            TableOperation deleteOperation = TableOperation.Delete(mailTemplateEntity);
+            var response = await this.cloudTable.ExecuteAsync(deleteOperation).ConfigureAwait(false);
+            result = true;
+        }
+
+        this.logger.TraceInformation($"Finished {nameof(this.DeleteMailTemplate)} method of {nameof(MailTemplateRepository)}.", traceProps);
+
+        return result;
     }
 
     /// <summary>
