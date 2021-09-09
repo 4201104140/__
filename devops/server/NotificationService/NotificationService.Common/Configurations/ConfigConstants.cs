@@ -33,6 +33,11 @@ public static class ConfigConstants
     public const string AIConfigSectionKey = "ApplicationInsights";
 
     /// <summary>
+    /// NotificationProviderType.
+    /// </summary>
+    public const string NotificationProviderType = "NotificationProviderType";
+
+    /// <summary>
     /// The notification encryption intial vector.
     /// </summary>
     public const string NotificationEncryptionIntialVector = "NotificationEncryptionIntialVector";

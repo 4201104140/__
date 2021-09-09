@@ -102,9 +102,37 @@ public class EmailHandlerManager : IEmailHandlerManager
             traceProps[AIConstants.Application] = applicationName;
             traceProps[AIConstants.EmailNotificationCount] = emailNotificationItems.Length.ToString(CultureInfo.InvariantCulture);
 
-            this.logger.WriteCustomEvent("QueueEmailNotification Started", traceProps);
+            this.logger.WriteCustomEvent("QueueEmailNotifications Started", traceProps);
             IList<NotificationResponse> notificationResponses = new List<NotificationResponse>();
-            
+            IList<EmailNotificationItemEntity> notificationItemEntities = await this.emailManager.CreateNotificationEntities(applicationName, emailNotificationItems, NotificationItemStatus.Queued).ConfigureAwait(false);
+            List<List<EmailNotificationItemEntity>> entitiesToQueue;
+            if (string.Equals(this.configuration?[ConfigConstants.NotificationProviderType], NotificationProviderType.Graph.ToString(), StringComparison.InvariantCultureIgnoreCase))
+            {
+                entitiesToQueue = BusinessUtilities.SplitList<EmailNotificationItemEntity>(notificationItemEntities.ToList(), this.mSGraphSetting.BatchRequestLimit).ToList();
+            }
+            else
+            {
+                entitiesToQueue = new List<List<EmailNotificationItemEntity>> { notificationItemEntities.ToList() };
+            }
+
+            // Queue a single cloud message for all entities created to enable parallel processing.
+            var cloudQueue = this.cloudStorageClient.GetCloudQueue(this.notificationQueue);
+
+            foreach (var item in entitiesToQueue)
+            {
+                this.logger.TraceVerbose($"Started {nameof(BusinessUtilities.GetCloudMessagesForEntities)} method of {nameof(EmailHandlerManager)}.", traceProps);
+                IList<string> cloudMessages = BusinessUtilities.GetCloudMessagesForEntities(applicationName, item);
+                this.logger.TraceVerbose($"Completed {nameof(BusinessUtilities.GetCloudMessagesForEntities)} method of {nameof(EmailHandlerManager)}.", traceProps);
+
+                this.logger.TraceVerbose($"Started {nameof(this.cloudStorageClient.QueueCloudMessages)} method of {nameof(EmailHandlerManager)}.", traceProps);
+                await this.cloudStorageClient.QueueCloudMessages(cloudQueue, cloudMessages).ConfigureAwait(false);
+                this.logger.TraceVerbose($"Completed {nameof(this.cloudStorageClient.QueueCloudMessages)} method of {nameof(EmailHandlerManager)}.", traceProps);
+            }
+
+            var responses = this.emailManager.NotificationEntitiesToResponse(notificationResponses, notificationItemEntities);
+            this.logger.TraceInformation($"Completed {nameof(this.QueueEmailNotifications)} method of {nameof(EmailHandlerManager)}.", traceProps);
+            result = true;
+            return responses;
         }
         catch (Exception e)
         {
@@ -133,6 +161,11 @@ public class EmailHandlerManager : IEmailHandlerManager
     }
 
     public Task<IList<NotificationResponse>> ResendMeetingNotificationsByDateRange(string applicationName, DateTimeRange dateRange)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<IList<NotificationResponse>> QueueMeetingNotifications(string applicationName, MeetingNotificationItem[] meetingNotificationItems)
     {
         throw new NotImplementedException();
     }

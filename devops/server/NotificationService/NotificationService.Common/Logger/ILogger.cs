@@ -39,6 +39,13 @@ public interface ILogger
     void TraceInformation(string message, IDictionary<string, string> properties = null);
 
     /// <summary>
+    /// This method is used to Write Trace with Severity Level Verbose.
+    /// </summary>
+    /// <param name="message">message which should be traced. Give as detailed as you need.</param>
+    /// <param name="properties">custom properties, add more dimensions to this, so it will be easy to trace and query.</param>
+    void TraceVerbose(string message, IDictionary<string, string> properties = null);
+
+    /// <summary>
     /// This method is used to Write Trace with Severity Level Warning.
     /// </summary>
     /// <param name="message">message which should be traced. Give as detailed as you need.</param>

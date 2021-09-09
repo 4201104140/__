@@ -1,6 +1,6 @@
 ﻿// @Tai.
 
-namespace NotificationService.Contracts.Models;
+namespace NotificationService.Contracts;
 
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;

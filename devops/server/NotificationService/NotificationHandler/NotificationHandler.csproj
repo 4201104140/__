@@ -28,5 +28,7 @@
     <ProjectReference Include="..\NotificationService.Data\NotificationService.Data.csproj" />
     <ProjectReference Include="..\NotificationService.SvCommon\NotificationService.SvCommon.csproj" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="https://json.schemastore.org/bitrise.json" /></VisualStudio></ProjectExtensions>
   
 </Project>

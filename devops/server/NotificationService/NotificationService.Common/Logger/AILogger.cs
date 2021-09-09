@@ -154,6 +154,19 @@ public class AILogger : ILogger, IDisposable
     }
 
     /// <summary>
+    /// This method is used to Write Trace with Severity Level Verbose.
+    /// </summary>
+    /// <param name="message">message which should be traced. Give as detailed as you need.</param>
+    /// <param name="properties">custom properties, add more dimensions to this, so it will be easy to trace and query.</param>
+    public void TraceVerbose(string message, IDictionary<string, string> properties = null)
+    {
+        if (this.loggingConfiguration.IsTraceEnabled && this.loggingConfiguration.TraceLevel <= SeverityLevel.Verbose)
+        {
+            this.telemetryClient.TrackTrace(message, SeverityLevel.Verbose, properties);
+        }
+    }
+
+    /// <summary>
     /// This method is used to Write Trace with Severity Level Warning.
     /// </summary>
     /// <param name="message">message which should be traced. Give as detailed as you need.</param>
