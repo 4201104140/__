@@ -1,0 +1,28 @@
+﻿@page "/notfound"
+
+<!-- Error Page -->
+<div class="error">
+	<div class="container-floud">
+		<div class="col-xs-12 ground-color text-center">
+			<div class="container-error-404">
+				<div class="clip"><div class="shadow"><span class="digit thirdDigit">@_third</span></div></div>
+				<div class="clip"><div class="shadow"><span class="digit secondDigit">@_second</span></div></div>
+				<div class="clip"><div class="shadow"><span class="digit firstDigit">@_first</span></div></div>
+				<div class="msg">OH!<span class="triangle"></span></div>
+			</div>
+			<h2 class="h1">Sorry! Page not found</h2>
+		</div>
+	</div>
+</div>
+<!-- Error Page -->
+@code {
+	private int _third, _second, _first;
+
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+		_third = 4;
+		_second = 0;
+		_first = 4;
+	}
+}

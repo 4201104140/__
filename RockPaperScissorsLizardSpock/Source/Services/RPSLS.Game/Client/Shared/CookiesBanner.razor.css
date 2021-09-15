@@ -1,0 +1,59 @@
+﻿/* Cookies Banner */
+.cookie-banner {
+    background: #372369;
+    padding: 30px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+    .cookie-banner .close {
+        right: 10px;
+        top: 10px;
+    }
+
+.cookie-banner-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .cookie-banner-container p {
+        font-family: "Work Sans", sans-serif;
+        font-size: 0.85rem;
+        margin-left: -180px;
+        position: relative;
+        color: #ffffff;
+        margin: 0;
+    }
+
+    .cookie-banner-container a {
+        text-decoration: underline;
+        color: #ffaa45;
+    }
+
+    .cookie-banner-container p:before {
+        background: url(../assets/images/png/character_robot.png);
+        background-repeat: no-repeat;
+        position: absolute;
+        content: " ";
+        width: 180px;
+        margin-left: -180px;
+        bottom: -30px;
+        height: 144px;
+        left: 0;
+    }
+
+@media (max-width: 992px) {
+    .cookie-banner-container {
+        padding: 0 40px 0 20px;
+    }
+
+        .cookie-banner-container p:before {
+            display: none;
+        }
+
+        .cookie-banner-container p {
+            margin-left: 0;
+        }
+}

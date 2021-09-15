@@ -1,0 +1,25 @@
+﻿@import url("https://fonts.googleapis.com/css?family=Work+Sans:300,400&display=swap");
+
+/* Fonts */
+@font-face {
+    font-family: "Voyager";
+    src: url("../assets/fonts/Voyager/Voyager_Light.otf");
+}
+
+@font-face {
+    font-family: "cc-icons";
+    font-style: normal;
+    font-weight: normal;
+    src: url("../assets/fonts/cc-icons/cc-icons.eot");
+    src: url("../assets/fonts/cc-icons/cc-icons.woff") format("woff"), url("../assets/fonts/cc-icons/cc-icons.ttf") format("truetype"), url("../assets/fonts/cc-icons/cc-icons.svg#svgFontName") format("svg");
+}
+
+/* Generic */
+html,
+body {
+    background-color: rgb(2, 0, 36);
+    background: linear-gradient( 180deg, rgba(2, 0, 36, 1) 0%, rgba(41, 6, 59, 1) 35%, rgb(69, 13, 95) 100% );
+    margin: 0;
+    font-size: 14px;
+}
+
