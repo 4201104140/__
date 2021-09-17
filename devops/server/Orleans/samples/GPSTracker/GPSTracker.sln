@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31710.8
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPSTracker.Service", "GPSTracker.Service\GPSTracker.Service.csproj", "{F72FBC15-D7F5-44FF-AAF6-6ED56AADD087}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPSTracker.Common", "GPSTracker.Common\GPSTracker.Common.csproj", "{F2F6F601-2E0A-4126-A9D2-9F90F570B0CD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F72FBC15-D7F5-44FF-AAF6-6ED56AADD087}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F72FBC15-D7F5-44FF-AAF6-6ED56AADD087}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F72FBC15-D7F5-44FF-AAF6-6ED56AADD087}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F72FBC15-D7F5-44FF-AAF6-6ED56AADD087}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2F6F601-2E0A-4126-A9D2-9F90F570B0CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2F6F601-2E0A-4126-A9D2-9F90F570B0CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2F6F601-2E0A-4126-A9D2-9F90F570B0CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2F6F601-2E0A-4126-A9D2-9F90F570B0CD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {946731EC-F34E-49CE-8807-EDDC271C3C0A}
+	EndGlobalSection
+EndGlobal
