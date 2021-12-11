@@ -1,0 +1,2 @@
+docker run -e AZP_URL=https://dev.azure.com/taieng -e AZP_TOKEN=tlcaxrcvjhcghrcav6ujc3qfzcxpf3nf7ym75s5pjkjsfwxglg6q -e AZP_AGENT_NAME=linuxagent -e AZP_POOL=1ES-Host-Ubuntu tnti/linuxagent:latest
+tlcaxrcvjhcghrcav6ujc3qfzcxpf3nf7ym75s5pjkjsfwxglg6q

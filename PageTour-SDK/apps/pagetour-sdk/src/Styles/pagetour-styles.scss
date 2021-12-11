@@ -1,0 +1,10 @@
+@font-face {
+  font-family: 'SegoeUI MDL2 Assets';
+  src: url('./fonts/segmdl2/segmdl2.eot');
+  src: url('./fonts/segmdl2/segmdl2.woff') format('woff'), url('./fonts/segmdl2/segmdl2.ttf') format('truetype'),
+    url('./fonts/segmdl2/segmdl2.svg') format('svg');
+}
+
+.pagetour {
+  ::-webkit-scrollbar
+}

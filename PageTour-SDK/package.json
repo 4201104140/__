@@ -1,0 +1,19 @@
+{
+  "name": "pagetour",
+  "description": "Typescript Based Sdk for PageTour",
+  "private": true,
+  "repository": {
+    "type": "git"
+  },
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "build": "lerna run build"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=8.0.0"
+  },
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  }
+}

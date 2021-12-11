@@ -1,0 +1,1 @@
+import { IPagetourRepository, Tutorial } from '@tai-sdk/pagetour';

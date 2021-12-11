@@ -1,0 +1,13 @@
+https://cloud.google.com/blog/products/identity-security/account-authentication-and-password-management-best-practices
+
+https://cloud.google.com/identity-platform
+
+https://codelabs.developers.google.com/codelabs/user-adaptive-interfaces#3
+
+https://web.dev/web-otp/
+
+https://github.com/GoogleChromeLabs/credential-management-sample/blob/master/main.py
+
+https://developers.google.com/web/updates/2016/04/credential-management-api
+
+https://web.dev/sign-in-form-best-practices/
