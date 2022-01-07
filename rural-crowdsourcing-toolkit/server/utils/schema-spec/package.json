@@ -1,0 +1,26 @@
+{
+  "name": "@tai/schema-spec",
+  "version": "2.0.0",
+  "description": "This package implements a module that converts a schema specification to db functions, TS type specifications, etc.",
+  "private": true,
+  "license": "MIT",
+  "main": "dist/Index",
+  "types": "dist/Index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "npm run clean && npm run compile",
+    "clean": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo",
+    "compile": "tsc -b tsconfig.json"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.4",
+    "@types/prettier": "^2.4.2",
+    "typescript": "^4.5.4"
+  },
+  "dependencies": {
+    "camelcase": "^6.2.1",
+    "prettier": "^2.5.1"
+  }
+}

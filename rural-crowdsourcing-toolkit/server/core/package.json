@@ -1,0 +1,25 @@
+{
+  "name": "@tai/core",
+  "version": "2.0.0",
+  "description": "This package defines core types used across the platform.",
+  "private": true,
+  "main": "dist/Index",
+  "types": "dist/Index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "npm run clean && npm run compile",
+    "clean": "rm -rf ./dist* && rm -rf tsconfig*.tsbuildinfo",
+    "compile": "tsc -b tsconfig-schema.json && node ./dist-schema/GenerateFiles.js && tsc -b tsconfig-ext.json"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "17.0.4",
+    "typescript": "4.5.4"
+  },
+  "dependencies": {
+    "deepcopy": "2.1.0",
+    "joi": "17.5.0"
+  }
+}
